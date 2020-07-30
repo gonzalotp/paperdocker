@@ -4,7 +4,7 @@
 #FROM openjdk:8-alpine
 FROM openjdk:11-jre-slim
 
-ARG paperspigot_ci_url=https://papermc.io/api/v1/paper/1.15.2/latest/download
+ARG paperspigot_ci_url=https://papermc.io/api/v1/paper/${PAPER_VERSION}/latest/download
 ENV PAPERSPIGOT_CI_URL=$paperspigot_ci_url
 
 WORKDIR /opt/minecraft
