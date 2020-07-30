@@ -33,6 +33,6 @@ jobs:
       run: echo ${SUPER_SECRET} | docker login -u gonzalotp --password-stdin
 
     - name: Push Image
-      run: |
-        version=$(echo "${GITHUB_REF#refs/*/*/}" | sed -e 's/version\/(.+)/$1/g')
-        docker push gonzalotp/paperdocker:${version}
+      env:
+        PAPER_VERSION: ${{ env.PAPER_VERSION }}
+      run: docker push gonzalotp/paperdocker:${PAPER_VERSION}
