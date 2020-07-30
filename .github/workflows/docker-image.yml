@@ -21,7 +21,18 @@ jobs:
     - name: Build latest version
       run: docker build . --file Dockerfile --tag gonzalotp/paperdocker:latest
       if: github.ref == 'master'
+
     - name: Build specific version
       run: |
         version=$(echo "${GITHUB_REF#refs/*/*/}" | sed -e 's/version\/(.+)/$1/g')
         docker build . --file Dockerfile --tag gonzalotp/paperdocker:${version}
+
+    - name: Log into registry
+      with:
+        SUPER_SECRET: ${{ secrets.REGISTRY_KEY }}
+      run: echo ${SUPER_SECRET} | docker login -u gonzalotp --password-stdin
+
+    - name: Push Image
+      run: |
+        version=$(echo "${GITHUB_REF#refs/*/*/}" | sed -e 's/version\/(.+)/$1/g')
+        docker push gonzalotp/paperdocker:${version}
