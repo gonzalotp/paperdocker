@@ -3,15 +3,16 @@ name: Docker Image CI
 on:
   push:
     branches:
-    - master
     - version/*
   pull_request:
     branches:
-    - master
     - version/*
+  schedule:
+    - cron: '0 0 * * *'
 
 env:
-  PAPER_VERSION: 1.16.1
+  PAPER_VERSION: CHANGE_ME->https://papermc.io/api/v1/paper
+  PAPER_BUILD: CHANGE_ME->https://papermc.io/api/v1/paper/${PAPER_VERSION}
 
 jobs:
 
@@ -25,7 +26,8 @@ jobs:
     - name: Build paper version
       env:
         PAPER_VERSION: ${{ env.PAPER_VERSION }}
-      run: docker build . --build-arg PAPER_VERSION --file Dockerfile --tag gonzalotp/paperdocker:${PAPER_VERSION}
+        PAPER_BUILD: ${{ env.PAPER_BUILD }}
+      run: docker build . --build-arg PAPER_VERSION --build-arg PAPER_BUILD --file Dockerfile --tag gonzalotp/paperdocker:${PAPER_VERSION}-${PAPER_BUILD}
 
     - name: Log into registry
       env:
@@ -35,4 +37,5 @@ jobs:
     - name: Push Image
       env:
         PAPER_VERSION: ${{ env.PAPER_VERSION }}
-      run: docker push gonzalotp/paperdocker:${PAPER_VERSION}
+        PAPER_BUILD: ${{ env.PAPER_BUILD }}
+      run: docker push gonzalotp/paperdocker:${PAPER_VERSION}-${PAPER_BUILD}

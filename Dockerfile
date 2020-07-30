@@ -5,7 +5,8 @@
 FROM openjdk:11-jre-slim
 
 ARG PAPER_VERSION
-ARG paperspigot_ci_url=https://papermc.io/api/v1/paper/${PAPER_VERSION}/latest/download
+ARG PAPER_BUILD
+ARG paperspigot_ci_url=https://papermc.io/api/v1/paper/${PAPER_VERSION}/${PAPER_BUILD}/download
 ENV PAPERSPIGOT_CI_URL=$paperspigot_ci_url
 
 WORKDIR /opt/minecraft
