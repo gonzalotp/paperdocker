@@ -25,7 +25,7 @@ jobs:
     - name: Build paper version
       env:
         PAPER_VERSION: ${{ env.PAPER_VERSION }}
-      run: docker build . --env PAPER_VERSION --file Dockerfile --tag gonzalotp/paperdocker:${PAPER_VERSION}
+      run: docker build . --build-arg PAPER_VERSION --file Dockerfile --tag gonzalotp/paperdocker:${PAPER_VERSION}
 
     - name: Log into registry
       env:

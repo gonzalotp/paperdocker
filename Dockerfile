@@ -4,7 +4,7 @@
 #FROM openjdk:8-alpine
 FROM openjdk:11-jre-slim
 
-ENV PAPER_VERSION
+ARG PAPER_VERSION
 ARG paperspigot_ci_url=https://papermc.io/api/v1/paper/${PAPER_VERSION}/latest/download
 ENV PAPERSPIGOT_CI_URL=$paperspigot_ci_url
 
