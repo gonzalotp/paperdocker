@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+    - master
+    - version/*
+  pull_request:
+    branches:
+    - master
+    - version/*
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build latest version
+      run: docker build . --file Dockerfile --tag gonzalotp/paperdocker:latest
+      if: github.ref == 'master'
+    - name: Build specific version
+      run: |
+        version=$(echo "$BRANCH_NAME" | sed -e 's/version\/(.+)/$1')
+        docker build . --file Dockerfile --tag gonzalotp/paperdocker:${version}
