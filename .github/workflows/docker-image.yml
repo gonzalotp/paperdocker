@@ -28,7 +28,7 @@ jobs:
         docker build . --file Dockerfile --tag gonzalotp/paperdocker:${version}
 
     - name: Log into registry
-      with:
+      env:
         SUPER_SECRET: ${{ secrets.REGISTRY_KEY }}
       run: echo ${SUPER_SECRET} | docker login -u gonzalotp --password-stdin
 
