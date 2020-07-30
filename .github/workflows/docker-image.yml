@@ -23,5 +23,5 @@ jobs:
       if: github.ref == 'master'
     - name: Build specific version
       run: |
-        version=$(echo "$BRANCH_NAME" | sed -e 's/version\/(.+)/$1')
+        version=$(echo "$BRANCH_NAME" | sed -e 's/version\/(.+)/$1/g')
         docker build . --file Dockerfile --tag gonzalotp/paperdocker:${version}
