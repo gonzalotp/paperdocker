@@ -11,8 +11,8 @@ on:
     - cron: '0 0 * * *'
 
 env:
-  PAPER_VERSION: CHANGE_ME->https://papermc.io/api/v1/paper
-  PAPER_BUILD: CHANGE_ME->https://papermc.io/api/v1/paper/${PAPER_VERSION}
+  PAPER_VERSION: 1.16.1
+  PAPER_BUILD: latest
 
 jobs:
 
