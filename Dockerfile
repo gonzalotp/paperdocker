@@ -1,8 +1,4 @@
-########################################################
-############## We use a java base image ################
-########################################################
-#FROM openjdk:8-alpine
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre AS stage1
 
 ARG PAPER_VERSION=1.16.1
 ARG PAPER_BUILD=latest
@@ -18,9 +14,10 @@ ADD ${PAPERSPIGOT_CI_URL} paperclip.jar
 RUN chmod go+r /opt/minecraft -R && java -jar /opt/minecraft/paperclip.jar; exit 0
 
 # Copy built jar
-RUN mv /opt/minecraft/cache/patched*.jar paperspigot.jar \
-&& rm /opt/minecraft/cache/* \
-&& rm paperclip.jar
+RUN mv /opt/minecraft/cache/patched*.jar paperspigot.jar
+
+FROM openjdk:11-jre AS stage2
+COPY --from=stage1 /opt/minecraft/paperspigot.jar /opt/minecraft/paperspigot.jar
 
 # Working directory
 # Worlds, logs, config and plugins will be here
