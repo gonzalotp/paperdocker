@@ -1,8 +1,6 @@
-########################################################
-############## We use a java base image ################
-########################################################
 #FROM openjdk:8-alpine
-FROM openjdk:11-jre-slim
+#FROM openjdk:11-jre-slim
+FROM openjdk:11-jre
 
 ARG PAPER_VERSION=1.15.2
 ARG PAPER_BUILD=latest
